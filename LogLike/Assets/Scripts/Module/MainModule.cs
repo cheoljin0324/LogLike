@@ -81,12 +81,12 @@ public class MainModule : MonoBehaviour
         if (!isDashing)
         {
             animator.Play("Dash");
-            movespd *= 4;
+            movespd *= 5;
             isDashing = true;
             Debug.Log("대쉬");
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
             Debug.Log("대쉬 끝");
-            movespd /= 4;
+            movespd /= 5;
             isDashing = false;
         }
     }
