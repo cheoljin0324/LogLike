@@ -9,12 +9,21 @@ public class MainModule : MonoBehaviour
     public Transform target;
     public Transform shotPos;
     public WeapownEntity useWeapown;
+    private float rotationspd = 360.0f;
+
+    [HideInInspector]
+    public List<GameObject> SearchItem;
+
+    private float xRotate, yRotate, xRotateMove, yRotateMove;
+    float rotateSpeed = 30.0f;
 
     InputModule inputModule;
     CharacterController characterController;
     HpModule _hpModule;
     AttackModule _attackModule;
     NavMeshAgent agent;
+
+    Collider[] itemToWorld;
 
     bool isDashing = false;
     int dashAtemp;
@@ -41,7 +50,6 @@ public class MainModule : MonoBehaviour
         {
             agent = GetComponent<NavMeshAgent>();
         }
-        speed = agent.speed;
     }
 
     public void SetDestination(Vector3 dest, float? _speed = null)
@@ -72,7 +80,7 @@ public class MainModule : MonoBehaviour
         {
             animator.SetBool("Move", true);
             characterController.SimpleMove(direction);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 3);
+            
         }
     }
 
@@ -88,6 +96,19 @@ public class MainModule : MonoBehaviour
             Debug.Log("´ë½¬ ³¡");
             movespd /= 5;
             isDashing = false;
+        }
+    }
+
+    public void ItemSearch()
+    {
+        itemToWorld = Physics.OverlapSphere(transform.position, 10f);
+        SearchItem.Clear();
+        for (int i = 0; i < itemToWorld.Length; i++)
+        {
+            if (itemToWorld[i].CompareTag("Weapown"))
+            {
+                SearchItem.Add(itemToWorld[i].gameObject);
+            }
         }
     }
 

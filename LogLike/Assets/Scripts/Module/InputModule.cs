@@ -44,6 +44,11 @@ public class InputModule : MonoBehaviour
             mainModule.animator.SetBool("Move", false);
             mainModule.playerIsMove = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            DownF();
+        }
         
     }
 
@@ -57,8 +62,16 @@ public class InputModule : MonoBehaviour
 
     }
 
+    void DownF()
+    {
+        mainModule.SearchItem[0].SetActive(false);
+        mainModule.SearchItem.Clear();
+        Debug.Log("³È");
+    }
+
     void InputKeyBoard()
     {
+        mainModule.ItemSearch();
         mainModule.MoveTo(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
     }
 
